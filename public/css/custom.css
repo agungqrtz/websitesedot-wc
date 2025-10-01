@@ -1,0 +1,54 @@
+/* Google Fonts */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Hero Section Styling */
+.hero-section {
+    position: relative;
+    height: 70vh;
+    background-image: url('https://images.unsplash.com/photo-1580620353692-35f5938166df?q=80&w=2070&auto=format&fit=crop'); /* Ganti dengan URL gambar tim/armada Anda */
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Lapisan gelap untuk kontras teks */
+}
+
+.hero-content {
+    position: relative; /* Agar konten berada di atas overlay */
+    z-index: 2;
+}
+
+/* Kotak putih di belakang judul utama */
+.hero-text-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.hero-text-box h1 {
+    color: #333; /* Warna teks gelap di dalam kotak putih */
+}
+
+/* Ikon di bagian layanan */
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.btn-success {
+    background-color: #198754; /* Warna hijau Bootstrap */
+    border-color: #198754;
+}
