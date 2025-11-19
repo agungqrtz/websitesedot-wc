@@ -25,15 +25,15 @@ class BookingController extends Controller
     {
         // 1. Validasi Input
         $validator = Validator::make($request->all(), [
-            'nama_lengkap' => 'required|string|max:255',
-            'nomor_whatsapp' => 'required|numeric',
+            'nama_lengkap' => 'required|string|min:1|max:255', // Updated validation rule
+            'nomor_whatsapp' => 'required|numeric|digits_between:10,15', // Updated validation rule
             'email' => 'nullable|email',
-            'alamat_lengkap' => 'required|string|max:500',
+            'alamat_lengkap' => 'required|string|min:1|max:255', // Updated validation rule
             'jenis_bangunan' => 'required|string',
             'jenis_bangunan_lainnya' => 'nullable|string|max:100',
             'jenis_layanan' => 'required|array|min:1',
             'jenis_layanan.*' => 'string',
-            'tanggal_pelayanan' => 'required|date',
+            'tanggal_pelayanan' => 'required|date|after_or_equal:today', // Updated validation rule
             'metode_pembayaran' => 'required|string',
         ]);
 
@@ -49,9 +49,9 @@ class BookingController extends Controller
             // Jika user login, kaitkan pesanan dengan ID user
             $dataToSave['user_id'] = Auth::id();
         }
-        
+
         Booking::create($dataToSave);
-        
+
         // 3. Format Pesan untuk WhatsApp
         $layanan = implode(', ', $validated['jenis_layanan']);
         $jenisBangunan = $validated['jenis_bangunan'];
@@ -68,7 +68,7 @@ class BookingController extends Controller
         $pesan .= "*Tanggal Pelayanan:*\n" . date('d F Y', strtotime($validated['tanggal_pelayanan'])) . "\n\n";
         $pesan .= "*Metode Pembayaran:*\n" . $validated['metode_pembayaran'] . "\n\n";
         $pesan .= "Mohon segera ditindaklanjuti. Terima kasih.";
-        
+
         // 4. Buat URL WhatsApp
         $nomorAdmin = '6281234567890'; // Ganti dengan nomor Anda
         $encodedPesan = urlencode($pesan);
@@ -116,14 +116,14 @@ class BookingController extends Controller
 
         // Validasi input
         $validated = $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'nomor_whatsapp' => 'required|numeric',
+            'nama_lengkap' => 'required|string|min:3|max:255', // Updated validation rule
+            'nomor_whatsapp' => 'required|numeric|digits_between:10,15', // Updated validation rule
             'email' => 'nullable|email',
-            'alamat_lengkap' => 'required|string|max:500',
+            'alamat_lengkap' => 'required|string|min:3|max:255', // Updated validation rule
             'jenis_bangunan' => 'required|string',
             'jenis_bangunan_lainnya' => 'nullable|string|max:100',
             'jenis_layanan' => 'required|array|min:1',
-            'tanggal_pelayanan' => 'required|date',
+            'tanggal_pelayanan' => 'required|date|after_or_equal:today', // Updated validation rule
             'metode_pembayaran' => 'required|string',
         ]);
 
